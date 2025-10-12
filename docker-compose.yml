@@ -1,0 +1,52 @@
+services:
+  api:
+    build: .
+    container_name: careHealth-api
+    restart: always
+    env_file: .env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+      - redis
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev  
+
+  mongo:
+    image: mongo:6.0
+    container_name: careHealth-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: careHealthdb
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: redis:7.0
+    container_name: careHealth-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  mongo-express:
+    image: mongo-express
+    container_name: careHealth-mongo-express
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123
+    ports:
+      - "8081:8081"
+
+volumes:
+  mongo_data:
