@@ -73,7 +73,7 @@ class CareHealthServer {
       });
     });
 
-    this.app.use('*', (req, res) => {
+    this.app.use((req, res) => {
       res.status(404).json({
         error: 'Route not found',
         path: req.originalUrl,
@@ -99,19 +99,19 @@ class CareHealthServer {
       await database.connect();
       
       this.app.listen(this.port, () => {
-        console.log('🚀 CareHealth EHR Server Started!');
-        console.log(`📡 Server running on port ${this.port}`);
-        console.log(`🌍 Environment: ${config.server.nodeEnv}`);
-        console.log(`📋 API Version: ${config.server.apiVersion}`);
-        console.log(`🔗 Health Check: http://localhost:${this.port}/health`);
-        console.log(`📊 API Base URL: http://localhost:${this.port}/api/${config.server.apiVersion}`);
+        console.log('CareHealth EHR Server Started!');
+        console.log(`Server running on port ${this.port}`);
+        console.log(`Environment: ${config.server.nodeEnv}`);
+        console.log(`API Version: ${config.server.apiVersion}`);
+        console.log(`Health Check: http://localhost:${this.port}/health`);
+        console.log(`API Base URL: http://localhost:${this.port}/api/${config.server.apiVersion}`);
       });
 
       process.on('SIGTERM', this.shutdown.bind(this));
       process.on('SIGINT', this.shutdown.bind(this));
       
     } catch (error) {
-      console.error('❌ Failed to start server:', error);
+      console.error('Failed to start server:', error);
       process.exit(1);
     }
   }

@@ -12,15 +12,15 @@ class Database {
         ? config.database.mongodbUri 
         : config.database.mongodbLocalUri;
 
-      console.log('🔄 Connecting to MongoDB...');
+      console.log('Connecting to MongoDB...');
       
       this.connection = await mongoose.connect(mongoUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
 
-      console.log('✅ MongoDB connected successfully');
-      console.log(`📊 Database: ${this.connection.connection.db.databaseName}`);
+      console.log('MongoDB connected successfully');
+      console.log(`Database: ${this.connection.connection.db.databaseName}`);
       
       return this.connection;
     } catch (error) {
