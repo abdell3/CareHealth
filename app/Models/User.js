@@ -31,10 +31,9 @@ class UserModel {
         select: false
       },
       role: {
-        type: String,
-        enum: ['admin', 'doctor', 'nurse', 'secretary', 'patient'],
-        required: [true, 'Role is required'],
-        default: 'patient'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role',
+        required: [true, 'Role is required']
       },
       phone: {
         type: String,

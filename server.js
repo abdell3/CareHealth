@@ -8,6 +8,7 @@ const config = require('./config/config.json');
 const database = require('./config/database');
 
 const authRoutes = require('./routes/auth');
+const RoleService = require('./app/Services/RoleService');
 
 const app = express();
 const port = process.env.PORT || config.server.port;
@@ -86,6 +87,7 @@ app.use((error, req, res, next) => {
 async function startServer() {
   try {
     await database.connect();
+    await RoleService.initializeRoles();
     
     app.listen(port, () => {
       console.log('CareHealth EHR Server Started!');
