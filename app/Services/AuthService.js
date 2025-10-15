@@ -21,6 +21,10 @@ class AuthService {
       throw new Error('User already exists with this email');
     }
 
+    if (role !== 'patient') {
+      throw new Error('Only patient self-registration is allowed. Staff accounts must be created by administrators.');
+    }
+
     const roleDoc = await Role.findByName(role);
     if (!roleDoc) {
       throw new Error(`Role '${role}' not found`);
@@ -31,7 +35,7 @@ class AuthService {
       lastName,
       email,
       password,
-      role: roleDoc._id, // Use the ObjectId instead of string
+      role: roleDoc._id, 
       phone
     });
 

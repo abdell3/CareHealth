@@ -8,6 +8,7 @@ const config = require('./config/config.json');
 const database = require('./config/database');
 
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
 const RoleService = require('./app/Services/RoleService');
 
 const app = express();
@@ -63,6 +64,7 @@ app.get(`/api/${config.server.apiVersion}`, (req, res) => {
 });
 
 app.use(`/api/${config.server.apiVersion}/auth`, authRoutes);
+app.use(`/api/${config.server.apiVersion}/users`, userRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
