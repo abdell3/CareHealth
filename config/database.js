@@ -8,11 +8,13 @@ class Database {
 
   async connect() {
     try {
-      const mongoUri = process.env.NODE_ENV === 'production' 
-        ? config.database.mongodbUri 
-        : config.database.mongodbLocalUri;
+      const mongoUri = process.env.MONGO_URI || 
+        (process.env.NODE_ENV === 'production' 
+          ? config.database.mongodbUri 
+          : config.database.mongodbLocalUri);
 
       console.log('Connecting to MongoDB...');
+      console.log('MongoDB URI:', mongoUri);
       
       this.connection = await mongoose.connect(mongoUri, {
         useNewUrlParser: true,
@@ -25,7 +27,9 @@ class Database {
       return this.connection;
     } catch (error) {
       console.error('MongoDB connection error:', error.message);
-      process.exit(1);
+      if (process.env.NODE_ENV !== 'development') {
+        process.exit(1);
+      }
     }
   }
 
