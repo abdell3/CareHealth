@@ -11,8 +11,7 @@ services:
       - redis
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
-    command: npm run dev  
+      - /usr/src/app/node_modules  
 
   mongo:
     image: mongo:6.0
