@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../Models/User');
+const RoleModel = require('../Models/Role');
 const config = require('../../config/config.json');
 
 class AuthService {
@@ -13,10 +14,16 @@ class AuthService {
   async register(userData) {
     const { firstName, lastName, email, password, role = 'patient', phone } = userData;
     const User = UserModel.getModel();
+    const Role = RoleModel.getModel();
 
     const exist = await User.findByEmail(email);
     if (exist) {
       throw new Error('User already exists with this email');
+    }
+
+    const roleDoc = await Role.findByName(role);
+    if (!roleDoc) {
+      throw new Error(`Role '${role}' not found`);
     }
 
     const user = new User({
@@ -24,7 +31,7 @@ class AuthService {
       lastName,
       email,
       password,
-      role,
+      role: roleDoc._id, // Use the ObjectId instead of string
       phone
     });
 
