@@ -2,8 +2,19 @@ const UserRepository = require('../Repositories/UserRepository');
 const RoleModel = require('../Models/Role');
 
 class UserService {
-  async getAllUsers() {
-    return await UserRepository.findAll();
+  async getAllUsers(filters = {}) {
+    const roleName = filters.role;
+    let repoFilters = {};
+    if (roleName) {
+      const Role = RoleModel.getModel();
+      const roleDoc = await Role.findByName(roleName);
+      if (roleDoc) {
+        repoFilters.role = roleDoc._id;
+      } else {
+        return [];
+      }
+    }
+    return await UserRepository.findAll(repoFilters);
   }
 
   async getUserById(id) {

@@ -4,7 +4,7 @@ const UserService = require('../../Services/UserService');
 class UserController {
   async getAllUsers(req, res) {
     try {
-      const users = await UserService.getAllUsers();
+      const users = await UserService.getAllUsers({ role: req.query.role });
       res.json({ success: true, data: users });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
