@@ -37,6 +37,11 @@ class UserRepository {
     return await User.findByIdAndUpdate(id, updateData, { new: true }).populate('role');
   }
 
+  async updateStatus(id, isActive) {
+    const User = UserModel.getModel();
+    return await User.findByIdAndUpdate(id, { isActive }, { new: true }).populate('role');
+  }
+
   async delete(id) {
     const User = UserModel.getModel();
     return await User.findByIdAndDelete(id);

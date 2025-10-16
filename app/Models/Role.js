@@ -8,8 +8,7 @@ class RoleModel {
         required: [true, 'Role name is required'],
         unique: true,
         lowercase: true,
-        trim: true,
-        enum: ['admin', 'doctor', 'nurse', 'secretary', 'patient']
+        trim: true
       },
       displayName: {
         type: String,
