@@ -10,6 +10,7 @@ const database = require('./config/database');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const roleRoutes = require('./routes/roles');
+const patientRoutes = require('./routes/patients');
 const RoleService = require('./app/Services/RoleService');
 
 const app = express();
@@ -67,6 +68,7 @@ app.get(`/api/${config.server.apiVersion}`, (req, res) => {
 app.use(`/api/${config.server.apiVersion}/auth`, authRoutes);
 app.use(`/api/${config.server.apiVersion}/users`, userRoutes);
 app.use(`/api/${config.server.apiVersion}/roles`, roleRoutes);
+app.use(`/api/${config.server.apiVersion}/patients`, patientRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
