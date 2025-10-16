@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../Models/User');
 const RoleModel = require('../Models/Role');
+const PatientService = require('./PatientService');
 const config = require('../../config/config.json');
 
 class AuthService {
@@ -40,6 +41,16 @@ class AuthService {
     });
 
     await user.save();
+
+    if (role === 'patient') {
+      await PatientService.create({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phone: user.phone,
+        email: user.email,
+        user: user._id
+      });
+    }
 
     const tokens = this.generateTokens(user);
     
