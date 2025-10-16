@@ -11,13 +11,24 @@ router.use(AuthMiddleware.requireAdmin);
 router.get('/', RoleController.list);
 
 router.post('/',
-  body('name').isIn(['admin','doctor','nurse','secretary','patient']).withMessage('Invalid role name'),
+  body('name')
+    .isString()
+    .trim()
+    .isLength({ min: 2, max: 30 })
+    .matches(/^[a-z0-9_-]+$/)
+    .withMessage('Invalid role name'),
   body('displayName').notEmpty(),
   body('description').notEmpty(),
   RoleController.create
 );
 
 router.put('/:id',
+  body('name')
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ min: 2, max: 30 })
+    .matches(/^[a-z0-9_-]+$/),
   body('displayName').optional().notEmpty(),
   body('description').optional().notEmpty(),
   RoleController.update

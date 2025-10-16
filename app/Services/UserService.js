@@ -56,6 +56,14 @@ class UserService {
   async deleteUser(id) {
     return await UserRepository.delete(id);
   }
+
+  async setUserStatus(id, isActive) {
+    const updated = await UserRepository.updateStatus(id, isActive);
+    if (!updated) {
+      throw new Error('User not found');
+    }
+    return updated;
+  }
 }
 
 module.exports = new UserService();

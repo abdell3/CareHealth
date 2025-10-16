@@ -56,6 +56,17 @@ class UserController {
       res.status(400).json({ success: false, message: error.message });
     }
   }
+
+  async setStatus(req, res) {
+    try {
+      const { isActive } = req.body;
+      const updated = await UserService.setUserStatus(req.params.id, isActive);
+      res.json({ success: true, data: updated });
+    } catch (error) {
+      const code = error.message === 'User not found' ? 404 : 400;
+      res.status(code).json({ success: false, message: error.message });
+    }
+  }
 }
 
 module.exports = new UserController();

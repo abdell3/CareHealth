@@ -20,6 +20,10 @@ const updateUserValidation = [
   body('role').optional().isIn(['admin', 'doctor', 'nurse', 'secretary', 'patient'])
 ];
 
+const statusValidation = [
+  body('isActive').isBoolean().withMessage('isActive must be boolean')
+];
+
 router.use(AuthMiddleware.verifyToken);
 router.use(AuthMiddleware.requireAdmin);
 
@@ -28,5 +32,6 @@ router.get('/:id', UserController.getUserById);
 router.post('/', createUserValidation, UserController.createUser);
 router.put('/:id', updateUserValidation, UserController.updateUser);
 router.delete('/:id', UserController.deleteUser);
+router.patch('/:id/status', statusValidation, UserController.setStatus);
 
 module.exports = router;
