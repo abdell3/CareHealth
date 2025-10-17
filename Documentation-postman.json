@@ -1,0 +1,1395 @@
+{
+	"info": {
+		"_postman_id": "e77c22ea-5b7f-43ee-bba6-6b07f150f4ec",
+		"name": "CareHealth-API",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43193558",
+		"_collection_link": "https://lunar-shuttle-45989.postman.co/workspace/My-Workspace~bf29f7a6-3a8a-4a3a-82c6-0aa3d34e2c02/collection/43193558-e77c22ea-5b7f-43ee-bba6-6b07f150f4ec?action=share&source=collection_link&creator=43193558"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get All Users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Staff",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n  \"firstName\": \"Abdellah\",\r\n  \"lastName\": \"Abdell\", \r\n  \"email\": \"abdo.abdell.2000@gmail.com\",\r\n  \"password\": \"doctor123456\",\r\n  \"role\": \"patient\",\r\n  \"phone\": \"+1234567890\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User By Role",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/users?role=patient",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"users"
+									],
+									"query": [
+										{
+											"key": "role",
+											"value": "patient"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/users/68eeaea79eae4a060a4ce311",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"users",
+										"68eeaea79eae4a060a4ce311"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Suspend/Reactive a User",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"isActive\": true \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/users/68efa66bc7bda4d122399e05/status",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"users",
+										"68efa66bc7bda4d122399e05",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Get All Roles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/roles",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Role By Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/roles/68eebd22330cc77f02b5f354",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"roles",
+										"68eebd22330cc77f02b5f354"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"name\": \"test\",\r\n\"displayName\": \"test\",\r\n\"description\": \"test for creation of role\",\r\n\"permissions\": {\r\n\"users\": { \"create\": false, \"read\": true, \"update\": false, \"delete\": false, \"suspend\": false },\r\n\"patients\": { \"create\": false, \"read\": true, \"update\": false, \"delete\": false, \"search\": true },\r\n\"appointments\": { \"create\": false, \"read\": true, \"update\": true, \"delete\": true, \"viewAll\": false, \"manageConflicts\": true },\r\n\"medical\": { \"viewHistory\": true, \"addNotes\": true, \"prescribe\": true, \"diagnosis\": true },\r\n\"notifications\": { \"send\": true, \"receive\": true }\r\n}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/roles",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Role",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/roles/68f0f96a8522a817bcbc7a63",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"roles",
+										"68f0f96a8522a817bcbc7a63"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login Admin",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();",
+											"",
+											"if (response && response.data && response.data.tokens) {",
+											"    const accessToken = response.data.tokens.accessToken;",
+											"    const refreshToken = response.data.tokens.refreshToken;",
+											"",
+											"    pm.environment.set(\"admin_token\", accessToken);",
+											"    pm.environment.set(\"refresh_admin_token\", refreshToken);",
+											"",
+											"    console.log(\"✅ Tokens enregistrés dans l'environnement !\");",
+											"} else {",
+											"    console.warn(\"⚠️ Aucun token trouvé dans la réponse :\", response);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{vault:authorization-secret}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"admin@carehealth.com\",\r\n  \"password\": \"admin123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"auth",
+										"login"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Patients",
+					"item": [
+						{
+							"name": "Create Patient",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Test\",\r\n    \"lastName\": \"Patient2\",\r\n    \"dateOfBirth\": \"2000-06-06\",\r\n    \"gender\": \"male\",\r\n    \"phone\": \"+123456789\",\r\n    \"email\": \"test@example.com\",\r\n    \"allergies\": [\"penicillin\",\"khikhi\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Patients",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Patient By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n  \"firstName\": \"Abdellah\",\r\n  \"lastName\": \"Abdell\", \r\n  \"email\": \"abdo.abdell.2000@gmail.com\",\r\n  \"password\": \"doctor123456\",\r\n  \"role\": \"patient\",\r\n  \"phone\": \"+1234567890\"\r\n  }"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f159d7a62654a928733209",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f159d7a62654a928733209"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Patient",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"phone\" : \"+2125577886633\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f159d7a62654a928733209",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f159d7a62654a928733209"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Patient",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"phone\" : \"+2125577886633\"\r\n  }"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f15ab7a62654a928733219",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f15ab7a62654a928733219"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{admin_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login Doctor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"if (response && response.data && response.data.tokens) {\r",
+											"    const accessToken = response.data.tokens.accessToken;\r",
+											"    const refreshToken = response.data.tokens.refreshToken;\r",
+											"\r",
+											"    pm.environment.set(\"doctor_token\", accessToken);\r",
+											"    pm.environment.set(\"refresh_doctor_token\", refreshToken);\r",
+											"\r",
+											"    console.log(\"✅ Tokens enregistrés dans l'environnement !\");\r",
+											"} else {\r",
+											"    console.warn(\"⚠️ Aucun token trouvé dans la réponse :\", response);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Patients",
+					"item": [
+						{
+							"name": "Create Patient",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Test\",\r\n    \"lastName\": \"Patient2\",\r\n    \"dateOfBirth\": \"2000-06-06\",\r\n    \"gender\": \"male\",\r\n    \"phone\": \"+123456789\",\r\n    \"email\": \"test@example.com\",\r\n    \"allergies\": [\"penicillin\",\"khikhi\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Patients",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Patient By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n  \"firstName\": \"Abdellah\",\r\n  \"lastName\": \"Abdell\", \r\n  \"email\": \"abdo.abdell.2000@gmail.com\",\r\n  \"password\": \"doctor123456\",\r\n  \"role\": \"patient\",\r\n  \"phone\": \"+1234567890\"\r\n  }"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f159d7a62654a928733209",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f159d7a62654a928733209"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Patient",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"phone\" : \"+2125577886633\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f159d7a62654a928733209",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f159d7a62654a928733209"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Patient",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"phone\" : \"+2125577886633\"\r\n  }"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f15ab7a62654a928733219",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f15ab7a62654a928733219"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{doctor_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Nurse",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login Nurse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"if (response && response.data && response.data.tokens) {\r",
+											"    const accessToken = response.data.tokens.accessToken;\r",
+											"    const refreshToken = response.data.tokens.refreshToken;\r",
+											"\r",
+											"    pm.environment.set(\"nurse_token\", accessToken);\r",
+											"    pm.environment.set(\"refresh_nurse_token\", refreshToken);\r",
+											"\r",
+											"    console.log(\"✅ Tokens enregistrés dans l'environnement !\");\r",
+											"} else {\r",
+											"    console.warn(\"⚠️ Aucun token trouvé dans la réponse :\", response);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Patients",
+					"item": [
+						{
+							"name": "Create Patient",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Test\",\r\n    \"lastName\": \"Patient2\",\r\n    \"dateOfBirth\": \"2000-06-06\",\r\n    \"gender\": \"male\",\r\n    \"phone\": \"+123456789\",\r\n    \"email\": \"test@example.com\",\r\n    \"allergies\": [\"penicillin\",\"khikhi\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Patients",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Patient By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n  \"firstName\": \"Abdellah\",\r\n  \"lastName\": \"Abdell\", \r\n  \"email\": \"abdo.abdell.2000@gmail.com\",\r\n  \"password\": \"doctor123456\",\r\n  \"role\": \"patient\",\r\n  \"phone\": \"+1234567890\"\r\n  }"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f159d7a62654a928733209",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f159d7a62654a928733209"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Patient",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"phone\" : \"+2125577886633\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f159d7a62654a928733209",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f159d7a62654a928733209"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Patient",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"phone\" : \"+2125577886633\"\r\n  }"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/patients/68f15ab7a62654a928733219",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"patients",
+										"68f15ab7a62654a928733219"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{nurse_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Secretary",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login Secretary",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"if (response && response.data && response.data.tokens) {\r",
+											"    const accessToken = response.data.tokens.accessToken;\r",
+											"    const refreshToken = response.data.tokens.refreshToken;\r",
+											"\r",
+											"    pm.environment.set(\"secretary_token\", accessToken);\r",
+											"    pm.environment.set(\"refresh_secretary_token\", refreshToken);\r",
+											"\r",
+											"    console.log(\"✅ Tokens enregistrés dans l'environnement !\");\r",
+											"} else {\r",
+											"    console.warn(\"⚠️ Aucun token trouvé dans la réponse :\", response);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{secretary_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login Patient",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"if (response && response.data && response.data.tokens) {\r",
+											"    const accessToken = response.data.tokens.accessToken;\r",
+											"    const refreshToken = response.data.tokens.refreshToken;\r",
+											"\r",
+											"    pm.environment.set(\"patient_token\", accessToken);\r",
+											"    pm.environment.set(\"refresh_patient_token\", refreshToken);\r",
+											"\r",
+											"    console.log(\"✅ Tokens enregistrés dans l'environnement !\");\r",
+											"} else {\r",
+											"    console.warn(\"⚠️ Aucun token trouvé dans la réponse :\", response);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{patient_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Test Health Check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test API Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/{{api_version}}/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"{{api_version}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Token Refresh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"refreshToken\": \"{{vault:json-web-token}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/{{api_version}}/auth/refresh-token",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"{{api_version}}",
+						"auth",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"patient\",\n  \"lastName\": \"houssam\",\n  \"email\": \"Patienthoussam@carehealth.com\",\n  \"password\": \"Patienthoussam\",\n  \"role\": \"patient\",\n  \"phone\": \"+212678125500\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/{{api_version}}/auth/register",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"{{api_version}}",
+						"auth",
+						"register"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "jwt",
+		"jwt": [
+			{
+				"key": "algorithm",
+				"value": "HS256",
+				"type": "string"
+			},
+			{
+				"key": "isSecretBase64Encoded",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "payload",
+				"value": "{}",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "headerPrefix",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "queryParamKey",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "header",
+				"value": "{}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://template.postman-echo.com"
+		}
+	]
+}
