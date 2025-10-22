@@ -15,16 +15,35 @@ class PatientController {
 
   async list(req, res) {
     try {
-      const docs = await PatientService.list({ search: req.query.search });
-      res.json({ success: true, data: docs });
+      const params = {
+        search: req.query.search,
+        page: req.query.page,
+        limit: req.query.limit,
+        gender: req.query.gender,
+        dateOfBirth: req.query.dateOfBirth
+      };
+      const result = await PatientService.list(params);
+      res.json({ 
+        success: true, 
+        data: result.data, 
+        meta: result.meta 
+      });
     } catch (e) {
-      res.status(500).json({ success: false, message: e.message });
+      res.status(500).json({ 
+        success: false, 
+        message: e.message 
+      });
     }
   }
 
   async get(req, res) {
     try {
       const doc = await PatientService.get(req.params.id);
+      if (req.user.role && req.user.role.name === 'patient') {
+        if (!doc.user || String(doc.user) !== String(req.user._id)) {
+          return res.status(403).json({ success: false, message: 'Access denied' });
+        }
+      }
       res.json({ success: true, data: doc });
     } catch (e) {
       const code = e.message === 'Patient not found' ? 404 : 400;

@@ -6,6 +6,7 @@ const AuthMiddleware = require('../app/Http/Middlewares/AuthMiddleware');
 const router = express.Router();
 
 router.use(AuthMiddleware.verifyToken);
+router.use(AuthMiddleware.requireRoles('admin','doctor','nurse','secretary'));
 
 const createValidation = [
   body('firstName').notEmpty(),

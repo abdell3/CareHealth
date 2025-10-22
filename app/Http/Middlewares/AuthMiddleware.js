@@ -25,11 +25,32 @@ class AuthMiddleware {
     }
   }
 
+  requireRoles(...allowedRoles) {
+    return (req, res, next) => {
+      if (!req.user || !req.user.role || !req.user.role.name) {
+        return res.status(403).json({ message: 'Access denied' });
+      }
+      if (!allowedRoles.includes(req.user.role.name)) {
+        return res.status(403).json({ message: 'Insufficient role' });
+      }
+      next();
+    };
+  }
+
   requireAdmin(req, res, next) {
-    if (req.user.role.name !== 'admin') {
-      return res.status(403).json({ message: 'Admin access required' });
-    }
-    next();
+    return this.requireRoles('admin')(req, res, next);
+  }
+
+  requireDoctor(req, res, next) {
+    return this.requireRoles('admin', 'doctor')(req, res, next);
+  }
+
+  requireMedicalStaff(req, res, next) {
+    return this.requireRoles('admin', 'doctor', 'nurse')(req, res, next);
+  }
+
+  requireStaff(req, res, next) {
+    return this.requireRoles('admin', 'doctor', 'nurse', 'secretary')(req, res, next);
   }
 }
 

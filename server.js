@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const roleRoutes = require('./routes/roles');
 const patientRoutes = require('./routes/patients');
+const appointmentRoutes = require('./routes/appointment');
 const RoleService = require('./app/Services/RoleService');
 
 const app = express();
@@ -69,6 +70,7 @@ app.use(`/api/${config.server.apiVersion}/auth`, authRoutes);
 app.use(`/api/${config.server.apiVersion}/users`, userRoutes);
 app.use(`/api/${config.server.apiVersion}/roles`, roleRoutes);
 app.use(`/api/${config.server.apiVersion}/patients`, patientRoutes);
+app.use(`/api/${config.server.apiVersion}/appointments`, appointmentRoutes);
 
 app.use((req, res) => {
   res.status(404).json({

@@ -101,6 +101,9 @@ class UserModel {
   }
 
   getModel() {
+    if (mongoose.models && mongoose.models.User) {
+      return mongoose.model('User');
+    }
     return mongoose.model('User', this.schema);
   }
 }
