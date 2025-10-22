@@ -6,7 +6,7 @@ const AuthMiddleware = require('../app/Http/Middlewares/AuthMiddleware');
 const router = express.Router();
 
 router.use(AuthMiddleware.verifyToken);
-router.use(AuthMiddleware.requireAdmin);
+router.use(AuthMiddleware.requireRoles('admin'));
 
 router.get('/', RoleController.list);
 
