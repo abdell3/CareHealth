@@ -29,7 +29,6 @@ const availabilityValidation = [
 
 router.use(AuthMiddleware.verifyToken);
 
-// Endpoint de disponibilités (AVANT /:id pour éviter les conflits de routing)
 router.get('/availability', 
   availabilityValidation, 
   AppointmentController.checkAvailability

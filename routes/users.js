@@ -25,7 +25,7 @@ const statusValidation = [
 ];
 
 router.use(AuthMiddleware.verifyToken);
-router.use(AuthMiddleware.requireAdmin);
+router.use(AuthMiddleware.requireRoles('admin'));
 
 router.get('/', UserController.getAllUsers);
 router.get('/:id', UserController.getUserById);

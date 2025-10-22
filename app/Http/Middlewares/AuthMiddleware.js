@@ -37,21 +37,7 @@ class AuthMiddleware {
     };
   }
 
-  requireAdmin(req, res, next) {
-    return this.requireRoles('admin')(req, res, next);
-  }
-
-  requireDoctor(req, res, next) {
-    return this.requireRoles('admin', 'doctor')(req, res, next);
-  }
-
-  requireMedicalStaff(req, res, next) {
-    return this.requireRoles('admin', 'doctor', 'nurse')(req, res, next);
-  }
-
-  requireStaff(req, res, next) {
-    return this.requireRoles('admin', 'doctor', 'nurse', 'secretary')(req, res, next);
-  }
+  
 }
 
 module.exports = new AuthMiddleware();
