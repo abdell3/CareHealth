@@ -155,8 +155,10 @@ class RoleModel {
   }
 
   getModel() {
-    return mongoose.model('Role', this.schema);
-  }
+    if (mongoose.models && mongoose.models.Role) {
+      return mongoose.model('Role');
+    }
+    return mongoose.model('Role', this.schema);  }
 }
 
 module.exports = new RoleModel();

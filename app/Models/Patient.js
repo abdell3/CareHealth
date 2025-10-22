@@ -80,6 +80,9 @@ class PatientModel {
   }
 
   getModel() {
+    if (mongoose.models && mongoose.models.Patient) {
+      return mongoose.model('Patient');
+    }
     return mongoose.model('Patient', this.schema);
   }
 }
