@@ -50,19 +50,19 @@ class MedicalRecordModel {
         },
       },
       { timestamps: true },
-    )
+    );
 
-    this.schema.index({ patient: 1, recordDate: -1 })
-    this.schema.index({ doctor: 1 })
-    this.schema.index({ appointment: 1 })
+    this.schema.index({ patient: 1, recordDate: -1 });
+    this.schema.index({ doctor: 1 });
+    this.schema.index({ appointment: 1 });
   }
 
   getModel() {
     if (mongoose.models && mongoose.models.MedicalRecord) {
-      return mongoose.model("MedicalRecord")
+      return mongoose.model("MedicalRecord");
     }
-    return mongoose.model("MedicalRecord", this.schema)
+    return mongoose.model("MedicalRecord", this.schema);
   }
 }
 
-module.exports = new MedicalRecordModel()
+module.exports = new MedicalRecordModel();
