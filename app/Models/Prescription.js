@@ -79,9 +79,8 @@ class PrescriptionModel {
         if(mongoose.models && mongoose.models.PrescriptionModel){
             return mongoose.model('Prescription'); 
         }
-        
         return mongoose.model('Prescription', this.schema);
     }
 }
 
-module.exports = PrescriptionModel();
+module.exports = new PrescriptionModel();

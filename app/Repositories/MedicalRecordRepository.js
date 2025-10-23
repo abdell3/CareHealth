@@ -51,8 +51,12 @@ class MedicalRecordRepository {
 
     if (filters.from || filters.to) {
       query.recordDate = {};
-      if (filters.from) query.recordDate.$gte = new Date(filters.from);
-      if (filters.to) query.recordDate.$lte = new Date(filters.to);
+      if (filters.from) {
+        query.recordDate.$gte = new Date(filters.from);
+      }
+      if (filters.to) {
+        query.recordDate.$lte = new Date(filters.to);
+      }
     }
 
     const page = Math.max(Number.parseInt(filters.page) || 1, 1);
