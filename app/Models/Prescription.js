@@ -61,18 +61,17 @@ class PrescriptionModel {
             }
         }, {
             timestamps : true
-        },
-    ) 
-    this.Schema.index({
-        patient : 1 ,
-        prescriptionDate : -1
-    });
-    this.Schema.index({
-        doctor : 1
-    });
-    this.Schema.index({
-        status : 1
-    });
+        }) 
+        this.Schema.index({
+            patient : 1 ,
+            prescriptionDate : -1
+        });
+        this.Schema.index({
+            doctor : 1
+        });
+        this.Schema.index({
+            status : 1
+        });
     }
 
     getModel() {
