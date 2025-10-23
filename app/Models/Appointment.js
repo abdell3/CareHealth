@@ -34,23 +34,23 @@ class AppointmentModel {
         type: String 
       },
       cancelledBy: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: 'User' 
-    },
-    cancelledAt: { 
-      type: Date 
-    },
-    cancellationReason: { 
-      type: String 
-    },
-    reminderSent: { 
-      type: Boolean, 
-      default: false 
-    },
-    reminderSentAt: { 
-      type: Date 
-    }
-  }, { timestamps: true });
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+      },
+      cancelledAt: { 
+        type: Date 
+      },
+      cancellationReason: { 
+        type: String 
+      },
+      reminderSent: { 
+        type: Boolean, 
+        default: false 
+      },
+      reminderSentAt: { 
+        type: Date 
+      }
+    }, { timestamps: true });
 
     this.schema.index({ doctor: 1, startTime: 1, endTime: 1 });
   }
