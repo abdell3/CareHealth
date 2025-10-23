@@ -2,16 +2,16 @@ const MedicalRecordModel = require("../Models/MedicalRecord");
 
 class MedicalRecordRepository {
   constructor() {
-    this.App = MedicalRecordModel.getModel();
+    this.MedicalRecord = MedicalRecordModel.getModel();
   }
 
   async create(data) {
-    const doc = new this.App(data);
+    const doc = new this.MedicalRecord(data);
     return doc.save();
   }
 
   async findById(id) {
-    return this.App.findById(id)
+    return this.MedicalRecord.findById(id)
       .populate("patient", "firstName lastName dateOfBirth")
       .populate("doctor", "firstName lastName email")
       .populate("appointment");
@@ -33,13 +33,13 @@ class MedicalRecordRepository {
     const limit = Math.min(Number.parseInt(filters.limit) || 50, 200);
     const skip = (page - 1) * limit;
 
-    const docs = await this.App.find(query)
+    const docs = await this.MedicalRecord.find(query)
       .populate("doctor", "firstName lastName")
       .sort({ recordDate: -1 })
       .skip(skip)
       .limit(limit);
 
-    const total = await this.App.countDocuments(query);
+    const total = await this.MedicalRecord.countDocuments(query);
     return { 
         data: docs, 
         meta: { page, limit, total } 
@@ -59,13 +59,13 @@ class MedicalRecordRepository {
     const limit = Math.min(Number.parseInt(filters.limit) || 50, 200);
     const skip = (page - 1) * limit;
 
-    const docs = await this.App.find(query)
+    const docs = await this.MedicalRecord.find(query)
       .populate("patient", "firstName lastName")
       .sort({ recordDate: -1 })
       .skip(skip)
       .limit(limit);
 
-    const total = await this.App.countDocuments(query);
+    const total = await this.MedicalRecord.countDocuments(query);
     return { 
         data: docs, 
         meta: { page, limit, total } 
@@ -73,13 +73,13 @@ class MedicalRecordRepository {
   }
 
   async update(id, data) {
-    return this.App.findByIdAndUpdate(id, data, { new: true })
+    return this.MedicalRecord.findByIdAndUpdate(id, data, { new: true })
       .populate("patient", "firstName lastName")
       .populate("doctor", "firstName lastName");
   }
 
   async delete(id) {
-    return this.App.findByIdAndDelete(id);
+    return this.MedicalRecord.findByIdAndDelete(id);
   }
 }
 

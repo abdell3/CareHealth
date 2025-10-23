@@ -2,20 +2,20 @@ const AppointmentModel = require("../Models/Appointment");
 
 class AppointmentRepository {
   constructor() {
-    this.App = AppointmentModel.getModel();
+    this.module = AppointmentModel.getModel();
   }
 
   async create(data) {
-    const doc = new this.App(data);
+    const doc = new this.module(data);
     return doc.save();
   }
 
   async findById(id) {
-    return this.App.findById(id).populate("doctor").populate("patient");
+    return this.module.findById(id).populate("doctor").populate("patient");
   }
 
   async findByDoctorBetween(doctorId, start, end) {
-    return this.App.find({
+    return this.module.find({
       doctor: doctorId,
       status: { $ne: "cancelled" },
       $or: [{ startTime: { $lt: end }, endTime: { $gt: start } }],
@@ -25,7 +25,7 @@ class AppointmentRepository {
   }
 
   async findByPatientBetween(patientId, start, end) {
-    return this.App.find({
+    return this.module.find({
       patient: patientId,
       status: { $ne: "cancelled" },
       $or: [{ startTime: { $lt: end }, endTime: { $gt: start } }],
@@ -58,14 +58,14 @@ class AppointmentRepository {
     const limit = Math.min(Number.parseInt(filters.limit) || 50, 200);
     const skip = (page - 1) * limit ;
 
-    const docs = await this.App.find(q)
+    const docs = await this.module.find(q)
       .populate("doctor", "firstName lastName email role")
       .populate("patient", "firstName lastName dateOfBirth phone")
       .sort({ startTime: 1 })
       .skip(skip)
       .limit(limit);
 
-    const total = await this.App.countDocuments(q);
+    const total = await this.module.countDocuments(q);
     return { 
       data: docs, 
       meta: { 
@@ -77,11 +77,11 @@ class AppointmentRepository {
   }
 
   async update(id, data) {
-    return this.App.findByIdAndUpdate(id, data, { new: true });
+    return this.module.findByIdAndUpdate(id, data, { new: true });
   }
 
   async delete(id) {
-    return this.App.findByIdAndDelete(id);
+    return this.module.findByIdAndDelete(id);
   }
 }
 

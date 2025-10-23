@@ -2,15 +2,15 @@ const UserModel = require('../Models/User');
 
 class UserRepository {
   constructor() {
-    this.model = UserModel.getModel();
+    this.User = UserModel.getModel();
   }
   
   async findByEmail(email) {
-    return await this.model.findByEmail(email).populate('role').select('+password');
+    return await this.User.findByEmail(email).populate('role').select('+password');
   }
 
   async findById(id) {
-    return await this.model .findById(id).populate('role');
+    return await this.User .findById(id).populate('role');
   }
 
   async findAll(filters = {}) {
@@ -24,17 +24,17 @@ class UserRepository {
       query.isActive = filters.isActive;
     }
 
-    return await this.model.find(query).populate('role');
+    return await this.User.find(query).populate('role');
   }
 
   async create(userData) {
-    const user = new this.model(userData);
+    const user = new this.user(userData);
     await user.save();
-    return await this.model.findById(user._id).populate('role');
+    return await this.User.findById(user._id).populate('role');
   }
 
   async update(id, updateData) {
-    await this.model.findByIdAndUpdate(id, updateData, { 
+    await this.User.findByIdAndUpdate(id, updateData, { 
       new: true,
       runValidators: true 
     });
@@ -42,7 +42,7 @@ class UserRepository {
   }
 
   async updateStatus(id, isActive) {
-    return await this.model.findByIdAndUpdate(
+    return await this.User.findByIdAndUpdate(
       id, 
       { isActive }, 
       { new: true }
@@ -50,7 +50,7 @@ class UserRepository {
   }
 
   async delete(id) {
-    return await this.model.findByIdAndDelete(id);
+    return await this.User.findByIdAndDelete(id);
   }
 }
 
