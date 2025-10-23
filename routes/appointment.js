@@ -41,23 +41,13 @@ router.use(AuthMiddleware.verifyToken);
 router.get("/availability", availabilityValidation, AppointmentController.checkAvailability);
 
 // CRUD Appointments
-router.post(
-  "/",
-  AuthMiddleware.requireRoles("admin", "doctor", "nurse", "secretary"),
-  createValidation,
-  AppointmentController.create,
-);
+router.post( "/", AuthMiddleware.requireRoles("admin", "doctor", "nurse", "secretary"), createValidation, AppointmentController.create,);
 
 router.get("/", AppointmentController.list);
 
 router.get("/:id", AppointmentController.get);
 
-router.put(
-  "/:id",
-  AuthMiddleware.requireRoles("admin", "doctor", "nurse", "secretary"),
-  updateValidation,
-  AppointmentController.update,
-);
+router.put( "/:id", AuthMiddleware.requireRoles("admin", "doctor", "nurse", "secretary"), updateValidation, AppointmentController.update,);
 
 router.delete("/:id", cancelValidation, AppointmentController.remove);
 
