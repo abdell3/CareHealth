@@ -23,7 +23,11 @@ class LabResultModel {
                 enum : ['blood', 'urine', 'imaging', 'other'],
                 required : true,
             },
-            orderDate : Date,
+            orderDate : {
+                type : Date,
+                default : Date.now,
+            },
+            resultDate : Date,
             status : {
                 type : String,
                 enum : ['Pending', 'Completed', 'Cancelled'],
