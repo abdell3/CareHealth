@@ -4,7 +4,10 @@ const PatientService = require('../../Services/PatientService');
 class PatientController {
   async create(req, res) {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() });
+    if (!errors.isEmpty()) 
+      {
+        return res.status(400).json({ success: false, errors: errors.array() });
+      }    
     try {
       const doc = await PatientService.create(req.body);
       res.status(201).json({ success: true, data: doc });

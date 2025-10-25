@@ -34,11 +34,11 @@ class LabResultService {
         return labResult;
     }
 
-    async getPatient(patientId, filters = {}) {
+    async getByPatient(patientId, filters = {}) {
         return await LabResultRepository.findByPatient(patientId, filters);
     }
 
-    async getDoctor(doctorId, filters = {}) {
+    async getByDoctor(doctorId, filters = {}) {
         return await LabResultRepository.findByDoctor(doctorId, filters);
     }
 
