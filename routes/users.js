@@ -10,14 +10,14 @@ const createUserValidation = [
   body('lastName').notEmpty().withMessage('Last name required'),
   body('email').isEmail().withMessage('Valid email required'),
   body('password').isLength({ min: 8 }).withMessage('Password min 8 chars'),
-  body('role').isIn(['admin', 'doctor', 'nurse', 'secretary', 'patient']).withMessage('Valid role required')
+  body('role').isIn(['admin', 'doctor', 'nurse', 'secretary', 'patient', 'pharmacist']).withMessage('Valid role required')
 ];
 
 const updateUserValidation = [
   body('firstName').optional().notEmpty(),
   body('lastName').optional().notEmpty(),
   body('email').optional().isEmail(),
-  body('role').optional().isIn(['admin', 'doctor', 'nurse', 'secretary', 'patient'])
+  body('role').optional().isIn(['admin', 'doctor', 'nurse', 'secretary', 'patient', 'pharmacist'])
 ];
 
 const statusValidation = [
