@@ -4,7 +4,7 @@ const UserRepository = require('../Repositories/UserRepository');
 
 class PrescriptionService {
     
-    async create({ patientId, doctorId, medicalRecordId, medications, expireDate, notes }) {
+    async create({ patientId, doctorId, medicalRecordId, medications, expiryDate, notes }) {
         const patient = await PatientRepository.findById(patientId);
         if(!patient) {
             const err = new Error('Patient Not Found !');
@@ -26,7 +26,12 @@ class PrescriptionService {
         }
 
         const prescription = await PrescriptionRepository.create({
-            patientId, doctorId, medicalRecordId, medications, expireDate, notes
+            patientId : patientId,
+            doctorId : doctorId,
+            medicalRecordId : medicalRecordId,
+            medications, 
+            expiryDate, 
+            notes
         }) ;
         
         return prescription;
@@ -72,8 +77,7 @@ class PrescriptionService {
             throw err ;
         }
         
-        const deletedPrescription = await PrescriptionRepository.delete(id);
-        return deletedPrescription;
+        return PrescriptionRepository.delete(id);
     }
 }
 
