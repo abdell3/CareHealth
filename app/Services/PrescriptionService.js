@@ -13,8 +13,8 @@ class PrescriptionService {
         }
 
         const doctor = await UserRepository.findById(doctorId);
-        if(!doctor) {
-            const err = new Error('Doctor Not Found !');
+        if(!doctor || doctor.role.name !== "doctor") {
+            const err = new Error('Doctor Not Found or Invalid!');
             err.statusCode = 404;
             throw err;
         }

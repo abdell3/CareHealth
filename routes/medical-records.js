@@ -1,9 +1,9 @@
-const express = require("express")
-const { body, query } = require("express-validator")
-const MedicalRecordController = require("../app/Http/Controllers/MedicalRecordController")
-const AuthMiddleware = require("../app/Http/Middlewares/AuthMiddleware")
+const express = require("express");
+const { body, query } = require("express-validator");
+const MedicalRecordController = require("../app/Http/Controllers/MedicalRecordController");
+const AuthMiddleware = require("../app/Http/Middlewares/AuthMiddleware");
 
-const router = express.Router()
+const router = express.Router();
 
 const createValidation = [
   body("patientId").isMongoId().withMessage("Valid patient ID required"),
@@ -15,7 +15,7 @@ const createValidation = [
   body("vitalSigns").optional().isObject(),
   body("treatment").optional().isString().trim(),
   body("notes").optional().isString().trim(),
-]
+];
 
 const updateValidation = [
   body("diagnosis").optional().isString().trim(),
@@ -23,20 +23,20 @@ const updateValidation = [
   body("vitalSigns").optional().isObject(),
   body("treatment").optional().isString().trim(),
   body("notes").optional().isString().trim(),
-]
+];
 
-router.use(AuthMiddleware.verifyToken)
+router.use(AuthMiddleware.verifyToken);
 
-router.post("/", AuthMiddleware.requireRoles("doctor"), createValidation, MedicalRecordController.create)
+router.post("/", AuthMiddleware.requireRoles("doctor"), createValidation, MedicalRecordController.create);
 
-router.get("/patient/:patientId", MedicalRecordController.getPatientRecords)
+router.get("/patient/:patientId", MedicalRecordController.getPatientRecords);
 
-router.get("/doctor/records", AuthMiddleware.requireRoles("doctor"), MedicalRecordController.getDoctorRecords)
+router.get("/doctor/records", AuthMiddleware.requireRoles("doctor"), MedicalRecordController.getDoctorRecords);
 
-router.get("/:id", MedicalRecordController.get)
+router.get("/:id", MedicalRecordController.get);
 
-router.put("/:id", AuthMiddleware.requireRoles("doctor"), updateValidation, MedicalRecordController.update)
+router.put("/:id", AuthMiddleware.requireRoles("doctor"), updateValidation, MedicalRecordController.update);
 
-router.delete("/:id", AuthMiddleware.requireRoles("doctor"), MedicalRecordController.delete)
+router.delete("/:id", AuthMiddleware.requireRoles("doctor"), MedicalRecordController.delete);
 
-module.exports = router
+module.exports = router;

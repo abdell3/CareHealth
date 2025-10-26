@@ -15,7 +15,10 @@ const appointmentRoutes = require("./routes/appointment");
 const medicalRecordRoutes = require("./routes/medical-records");
 const prescriptionRoutes = require("./routes/prescriptions");
 const labResultRoutes = require("./routes/lab-results");
-const RoleService = require("./app/Services/RoleService");
+const medicalDocumentRoutes = require('./routes/medical-documents');
+const pharmacyRoutes = require('./routes/pharmacy');
+const RoleService = require("./app/Services/RoleService")
+
 
 const app = express();
 const port = process.env.PORT || config.server.port;
@@ -83,6 +86,9 @@ app.use(`/api/${config.server.apiVersion}/appointments`, appointmentRoutes);
 app.use(`/api/${config.server.apiVersion}/medical-records`, medicalRecordRoutes);
 app.use(`/api/${config.server.apiVersion}/prescriptions`, prescriptionRoutes);
 app.use(`/api/${config.server.apiVersion}/lab-results`, labResultRoutes);
+app.use(`/api/${config.server.apiVersion}/lab-results`, medicalDocumentRoutes);
+app.use(`/api/${config.server.apiVersion}/lab-results`, pharmacyRoutes);
+
 
 app.use((req, res) => {
   res.status(404).json({
