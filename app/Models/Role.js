@@ -50,6 +50,19 @@ class RoleModel {
           prescribe: { type: Boolean, default: false },
           diagnosis: { type: Boolean, default: false }
         },
+        pharmacy : {
+          viewPrescriptions : { type : Boolean, default : false },
+          dispensePrescriptions : { type : Boolean, default : false },
+          managePrescriptionStatus : { type : Boolean, default : false },
+          viewPatientInfo : { type : Boolean, default : false },
+          sendNotifications : { type : Boolean, default : false }
+        },
+        documents : {
+          upload : { type : Boolean, default : false },
+          download : { type : Boolean, default : false },
+          delete : { type : Boolean, default : false },
+          view : { type : Boolean, default : false }
+        },
         notifications: {
           send: { type: Boolean, default: false },
           receive: { type: Boolean, default: false }
@@ -92,6 +105,8 @@ class RoleModel {
             patients: { create: true, read: true, update: true, delete: true, search: true },
             appointments: { create: true, read: true, update: true, delete: true, viewAll: true, manageConflicts: true },
             medical: { viewHistory: true, addNotes: true, prescribe: true, diagnosis: true },
+            pharmacy : { viewPrescriptions : true, dispensePrescriptions : true, managePrescriptionStatus : true, viewPatientInfo : true, sendNotifications : true },
+            documents : { upload : true, download : true, delete : true, view : true },
             notifications: { send: true, receive: true }
           }
         },
@@ -104,6 +119,8 @@ class RoleModel {
             patients: { create: true, read: true, update: true, delete: false, search: true },
             appointments: { create: true, read: true, update: true, delete: true, viewAll: false, manageConflicts: true },
             medical: { viewHistory: true, addNotes: true, prescribe: true, diagnosis: true },
+            pharmacy : { viewPrescription : true, dispensePrescriptions : false, managePrescriptionStatus : false, viewPatient : false, sendNotifications : false },
+            documents : { upload : true, download : true, delete : true, view : true },
             notifications: { send: true, receive: true }
           }
         },
@@ -116,6 +133,8 @@ class RoleModel {
             patients: { create: true, read: true, update: true, delete: false, search: true },
             appointments: { create: true, read: true, update: true, delete: true, viewAll: false, manageConflicts: true },
             medical: { viewHistory: true, addNotes: true, prescribe: false, diagnosis: false },
+            pharmacy : { viewPrescription : false, dispensePrescriptions : false, managePrescriptionStatus : false, viewPatient : false, sendNotifications : false },
+            documents : { upload : true, download : true, delete : false, view : true },
             notifications: { send: true, receive: true }
           }
         },
@@ -128,8 +147,24 @@ class RoleModel {
             patients: { create: true, read: true, update: true, delete: false, search: true },
             appointments: { create: true, read: true, update: true, delete: true, viewAll: true, manageConflicts: true },
             medical: { viewHistory: false, addNotes: false, prescribe: false, diagnosis: false },
+            pharmacy : { viewPrescription : false, dispensePrescriptions : false, managePrescriptionStatus : false, viewPatient : false, sendNotifications : false },
+            documents : { upload : false, download : false, delete : false, view : false },
             notifications: { send: true, receive: true }
           }
+        },
+        {
+          name : 'pharmacist',
+          displayName : 'Pharmacist',
+          description : 'Pharmacy Professional Managing Prescriptions And Mediciations',
+          permissions : {
+            users: { create: false, read: true, update: false, delete: false, suspend: false },
+            patients: { create: false, read: true, update: false, delete: false, search: true },
+            appointments: { create: false, read: true, update: false, delete: false, viewAll: false, manageConflicts: false },
+            medical: { viewHistory: true, addNotes: false, prescribe: false, diagnosis: false },
+            pharmacy : { viewPrescription : true, dispensePrescriptions : true, managePrescriptionStatus : true, viewPatient : true, sendNotifications : true },
+            documents : { upload : false, download : true, delete : false, view : true },
+            notifications: { send: true, receive: true }
+          },
         },
         {
           name: 'patient',
@@ -140,6 +175,8 @@ class RoleModel {
             patients: { create: false, read: true, update: true, delete: false, search: false },
             appointments: { create: true, read: true, update: true, delete: true, viewAll: false, manageConflicts: false },
             medical: { viewHistory: true, addNotes: false, prescribe: false, diagnosis: false },
+            pharmacy : { viewPrescription : true, dispensePrescriptions : false, managePrescriptionStatus : false, viewPatient : false, sendNotifications : false },
+            documents : { upload : false, download : true, delete : false, view : true },
             notifications: { send: false, receive: true }
           }
         }
