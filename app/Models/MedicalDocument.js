@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 class MedicalDocumentModel {
   constructor() {
@@ -69,20 +69,20 @@ class MedicalDocumentModel {
         ],
       },
       { timestamps: true },
-    )
+    );
 
-    this.schema.index({ patient: 1, createdAt: -1 })
-    this.schema.index({ uploadedBy: 1 })
-    this.schema.index({ category: 1 })
-    this.schema.index({ medicalRecord: 1 })
+    this.schema.index({ patient: 1, createdAt: -1 });
+    this.schema.index({ uploadedBy: 1 });
+    this.schema.index({ category: 1 });
+    this.schema.index({ medicalRecord: 1 });
   }
 
   getModel() {
     if (mongoose.models && mongoose.models.MedicalDocument) {
-      return mongoose.model("MedicalDocument")
+      return mongoose.model("MedicalDocument");
     }
-    return mongoose.model("MedicalDocument", this.schema)
+    return mongoose.model("MedicalDocument", this.schema);
   }
 }
 
-module.exports = new MedicalDocumentModel()
+module.exports = new MedicalDocumentModel();
