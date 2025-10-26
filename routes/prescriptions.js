@@ -6,13 +6,13 @@ const AuthMiddleware = require('../app/Http/Middlewares/AuthMiddleware');
 const router = express.Router();
 const createValidation = [
     body('patientId').isMongoId().withMessage('Valid Patient Id required'),
-    body('medication').isArrat({ min : 1 }).withMessage('At Least One Medication Required'),
-    body('medication.*.name').isString().trim().noEmpty().withMessage('Medication Name required'),
-    body('medication.*.dosage').isString().trim().noEmpty().withMessage('Dosage required'),
-    body('medication.*.frequency').isString().trim().noEmpty().withMessage('Frequency required'),
+    body('medication').isArray({ min : 1 }).withMessage('At Least One Medication Required'),
+    body('medication.*.name').isString().trim().notEmpty().withMessage('Medication Name required'),
+    body('medication.*.dosage').isString().trim().notEmpty().withMessage('Dosage required'),
+    body('medication.*.frequency').isString().trim().notEmpty().withMessage('Frequency required'),
     body('medication.*.duration').optional().isString().trim(),
     body('medication.*.instructions').optional().isString().trim(),
-    body('expiryDate').optional().isIS08601(),
+    body('expiryDate').optional().isISO8601(),
     body('notes').optional().isString().trim()
 ];
 

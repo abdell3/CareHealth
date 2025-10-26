@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 class LabResultModel {
     constructor() {
-        this.schema = new mongoose.schema({
+        this.schema = new mongoose.Schema({
             patient : {
                 type : mongoose.Schema.Types.ObjectId,
                 ref : 'Patient',
