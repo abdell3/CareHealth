@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 class PrescriptionModel {
     constructor() {
-        this.Schema = new mongoose.Schema({
+        this.schema = new mongoose.Schema({
             patient : {
                 type : mongoose.Schema.Types.ObjectId,
                 ref : 'Patient',
@@ -82,17 +82,17 @@ class PrescriptionModel {
         }, {
             timestamps : true
         }) 
-        this.Schema.index({
+        this.schema.index({
             patient : 1 ,
             prescriptionDate : -1
         });
-        this.Schema.index({
+        this.schema.index({
             doctor : 1
         });
-        this.Schema.index({
+        this.schema.index({
             pharmacy : 1
         });
-        this.Schema.index({
+        this.schema.index({
             status : 1
         });
     }
