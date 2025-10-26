@@ -18,6 +18,10 @@ class PrescriptionModel {
                 ref : 'MedicalRecord',
                 require: true
             }, 
+            pharmacy : {
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'Pharmacy',
+            },
             medication : [
                 {
                     name : {
@@ -43,21 +47,37 @@ class PrescriptionModel {
                         type : String, 
                         trim : true,
                     },
+                    route : {
+                        type : String,
+                        enum : ['oral', 'injection', 'topical', 'inhalation', 'other'],
+                        default : 'oral'
+                    }
                 },
             ],
             status : {
                 type : String,
-                enum : ['Draft', 'Signed', 'Sent', 'Dispensed'],
-                default : 'Draft'
+                enum : ['draft', 'signed', 'sent', 'dispensed', 'cancelled'],
+                default : 'draft'
             },
             prescriptionDate : {
                 type : Date,
                 default : Date.now
             },
-            expireDate : Date,
+            expireyDate : Date,
+            signedAt : Date,
+            sentAt : Date,
+            dispensedAt : Date,
             notes : {
                 type : String, 
                 trim : true 
+            },
+            renewals : {
+                type : Number,
+                default : 0
+            },
+            maxRenewals : {
+                type : Number,
+                default : 0,
             }
         }, {
             timestamps : true
@@ -68,6 +88,9 @@ class PrescriptionModel {
         });
         this.Schema.index({
             doctor : 1
+        });
+        this.Schema.index({
+            pharmacy : 1
         });
         this.Schema.index({
             status : 1

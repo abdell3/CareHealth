@@ -94,7 +94,7 @@ class PrescriptionController {
   async get(req, res) {
     try {
       const { id } = req.params
-      const prescription = await PrescriptionService.get(id)
+      const prescription = await PrescriptionService.getById(id)
 
       res.json({
         success: true,

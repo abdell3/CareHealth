@@ -24,7 +24,7 @@ class PrescriptionRepository {
             query.status = filters.status;
         }
 
-        if(filters.from | filters.to){
+        if(filters.from || filters.to){
             query.prescriptionDate = {};
             if(filters.from) {
                 query.prescriptionDate.$gte = new Date(filters.from);
@@ -72,7 +72,7 @@ class PrescriptionRepository {
             .populate('patient', 'firstName lastName')
             .sort({ prescriptionDate : -1 })
             .skip(skip)
-            limit(limit);
+            .limit(limit);
 
         const total = await this.Prescription.countDocuments(query);
         return {
