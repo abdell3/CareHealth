@@ -46,25 +46,25 @@
     }
 
     async findByLicenseNumber(licenseNumber) {
-        return this.App.findOne({ licenseNumber })
+        return this.App.findOne({ licenseNumber });
     }
 
     async update(id, data) {
         return this.App.findByIdAndUpdate(id, data, { new: true })
             .populate("manager", "firstName lastName")
-            .populate("staff", "firstName lastName")
+            .populate("staff", "firstName lastName");
     }
 
     async addStaff(pharmacyId, userId) {
-        return this.App.findByIdAndUpdate(pharmacyId, { $addToSet: { staff: userId } }, { new: true })
+        return this.App.findByIdAndUpdate(pharmacyId, { $addToSet: { staff: userId } }, { new: true });
     }
 
     async removeStaff(pharmacyId, userId) {
-        return this.App.findByIdAndUpdate(pharmacyId, { $pull: { staff: userId } }, { new: true })
+        return this.App.findByIdAndUpdate(pharmacyId, { $pull: { staff: userId } }, { new: true });
     }
 
     async delete(id) {
-        return this.App.findByIdAndUpdate(id, { isActive: false }, { new: true })
+        return this.App.findByIdAndUpdate(id, { isActive: false }, { new: true });
     }
 }
 
