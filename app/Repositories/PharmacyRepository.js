@@ -67,3 +67,5 @@
         return this.App.findByIdAndUpdate(id, { isActive: false }, { new: true })
     }
 }
+
+module.exports = new PharmacyRepository();
