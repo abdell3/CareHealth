@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { body } from 'express-validator';
-import { getAllUsers, getUserById, createUser, updateUser, deleteUser, setStatus } from '../app/Http/Controllers/UserController';
-import { verifyToken, requireRoles } from '../app/Http/Middlewares/AuthMiddleware';
+const express = require('express');
+const { body } = require('express-validator');
+const UserController = require('../app/Http/Controllers/UserController');
+const AuthMiddleware = require('../app/Http/Middlewares/AuthMiddleware');
 
-const router = Router();
+const router = express.Router();
 
 const createUserValidation = [
   body('firstName').notEmpty().withMessage('First name required'),
@@ -24,14 +24,15 @@ const statusValidation = [
   body('isActive').isBoolean().withMessage('isActive must be boolean')
 ];
 
-router.use(verifyToken);
-router.use(requireRoles('admin'));
+router.use(AuthMiddleware.verifyToken);
 
-router.get('/', getAllUsers);
-router.get('/:id', getUserById);
-router.post('/', createUserValidation, createUser);
-router.put('/:id', updateUserValidation, updateUser);
-router.delete('/:id', deleteUser);
-router.patch('/:id/status', statusValidation, setStatus);
+router.use(AuthMiddleware.requireRoles('admin'));
 
-export default router;
+router.get('/', UserController.getAllUsers);
+router.get('/:id', UserController.getUserById);
+router.post('/', createUserValidation, UserController.createUser);
+router.put('/:id', updateUserValidation, UserController.updateUser);
+router.delete('/:id', UserController.deleteUser);
+router.patch('/:id/status', statusValidation, UserController.setStatus);
+
+module.exports = router;
