@@ -33,9 +33,9 @@ router.use(AuthMiddleware.verifyToken);
 
 router.post("/", AuthMiddleware.requireRoles("admin"), createValidation, PharmacyController.create);
 
-router.get("/", PharmacyController.list);
+router.get("/", PharmacyController.getAll);
 
-router.get("/:id", param("id").isMongoId(), PharmacyController.get);
+router.get("/:id", param("id").isMongoId(), PharmacyController.getById);
 
 router.put( "/:id", AuthMiddleware.requireRoles("admin"), param("id").isMongoId(), updateValidation, PharmacyController.update,);
 

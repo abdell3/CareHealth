@@ -63,7 +63,7 @@ class PharmacyModel {
     }
 
     getModel() {
-        if (mongoose.models && mongoose.models.Patient) {
+        if (mongoose.models && mongoose.models.Pharmacy) {
           return mongoose.model('Pharmacy');
         }
         return mongoose.model('Pharmacy', this.schema);

@@ -41,9 +41,9 @@ router.use(AuthMiddleware.verifyToken);
 
 router.post("/upload", AuthMiddleware.requireRoles("admin", "doctor", "nurse"), upload.single("file"), uploadValidation,MedicalDocumentController.upload);
 
-router.get("/patient/:patientId", param("patientId").isMongoId(), MedicalDocumentController.getPatientDocuments);
+router.get("/patient/:patientId", param("patientId").isMongoId(), MedicalDocumentController.getByPatient);
 
-router.get("/:id", param("id").isMongoId(), MedicalDocumentController.get);
+router.get("/:id", param("id").isMongoId(), MedicalDocumentController.getById);
 
 router.get("/:id/download", param("id").isMongoId(), MedicalDocumentController.getPresignedUrl);
 

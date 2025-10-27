@@ -63,7 +63,7 @@ class AuthService {
   async login(email, password) {
     const User = UserModel.getModel();
     const user = await User.findByEmail(email).select('+password');
-    
+    console.log('--- DÉBOGAGE LOGIN --- \nUtilisateur trouvé:', user, '\nMot de passe reçu:', password);
     if (!user) {
       throw new Error('Invalid email or password');
     }
