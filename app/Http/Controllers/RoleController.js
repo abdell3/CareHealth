@@ -2,6 +2,17 @@ const { body, validationResult } = require('express-validator');
 const RoleService = require('../../Services/RoleService');
 
 class RoleController {
+  async getRoleById(req, res) {
+    try {
+      const role = await RoleService.getRoleById(req.params.id);
+      res.json({ success: true, data: role});
+    } catch(error) {
+      res.status(500).json({ success: false, message: error.message});
+    }
+  }
+
+
+
   async list(req, res) {
     try {
       const roles = await RoleService.getAllRoles();

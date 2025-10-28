@@ -11,12 +11,12 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const roleRoutes = require("./routes/roles");
 const patientRoutes = require("./routes/patients");
-const appointmentRoutes = require("./routes/appointment");
+const appointmentRoutes = require("./routes/appointments");
 const medicalRecordRoutes = require("./routes/medical-records");
 const prescriptionRoutes = require("./routes/prescriptions");
 const labResultRoutes = require("./routes/lab-results");
 const medicalDocumentRoutes = require('./routes/medical-documents');
-const pharmacyRoutes = require('./routes/pharmacy');
+const pharmacyRoutes = require('./routes/pharmacies');
 const RoleService = require("./app/Services/RoleService")
 
 
@@ -86,8 +86,8 @@ app.use(`/api/${config.server.apiVersion}/appointments`, appointmentRoutes);
 app.use(`/api/${config.server.apiVersion}/medical-records`, medicalRecordRoutes);
 app.use(`/api/${config.server.apiVersion}/prescriptions`, prescriptionRoutes);
 app.use(`/api/${config.server.apiVersion}/lab-results`, labResultRoutes);
-app.use(`/api/${config.server.apiVersion}/lab-results`, medicalDocumentRoutes);
-app.use(`/api/${config.server.apiVersion}/lab-results`, pharmacyRoutes);
+app.use(`/api/${config.server.apiVersion}/medical-documents`, medicalDocumentRoutes);
+app.use(`/api/${config.server.apiVersion}/pharmacies`, pharmacyRoutes);
 
 
 app.use((req, res) => {

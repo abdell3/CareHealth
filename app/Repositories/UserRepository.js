@@ -10,7 +10,7 @@ class UserRepository {
   }
 
   async findById(id) {
-    return await this.User .findById(id).populate('role');
+    return await this.User.findById(id).populate('role');
   }
 
   async findAll(filters = {}) {
@@ -28,7 +28,7 @@ class UserRepository {
   }
 
   async create(userData) {
-    const user = new this.user(userData);
+    const user = new this.User(userData);
     await user.save();
     return await this.User.findById(user._id).populate('role');
   }

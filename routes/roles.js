@@ -22,6 +22,9 @@ router.post('/',
   RoleController.create
 );
 
+router.get('/:id', RoleController.getRoleById);
+
+
 router.put('/:id',
   body('name')
     .optional()

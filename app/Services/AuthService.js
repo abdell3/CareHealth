@@ -62,8 +62,8 @@ class AuthService {
 
   async login(email, password) {
     const User = UserModel.getModel();
-    const user = await User.findByEmail(email).select('+password');
-    console.log('--- DÉBOGAGE LOGIN --- \nUtilisateur trouvé:', user, '\nMot de passe reçu:', password);
+    const user = await User.findOne({ email: email }).select('+password');
+    console.log('--- DÉBOGAGE LOGIN --- \nUtilisateur trouvé:', user, '\nMot de passe reçu:', password, '\nemail' , email);
     if (!user) {
       throw new Error('Invalid email or password');
     }
