@@ -1,0 +1,11 @@
+{
+  "watch": ["app", "config", "routes", "nodemon.json"],
+  "ext": "js,json",
+  "ignore": ["node_modules"],
+  "exec": "node server.js",
+  "env": {
+    "PORT": "8000",
+    "NODE_ENV": "development"
+  },
+  "legacyWatch": true
+}

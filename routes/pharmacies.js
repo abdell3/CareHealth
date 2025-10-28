@@ -31,9 +31,9 @@ const staffValidation = [body("staffId").isMongoId().withMessage("Valid staff ID
 
 router.use(AuthMiddleware.verifyToken);
 
-router.post("/", AuthMiddleware.requireRoles("admin"), createValidation, PharmacyController.create);
-
 router.get("/", PharmacyController.getAll);
+
+router.post("/", AuthMiddleware.requireRoles("admin"), createValidation, PharmacyController.create);
 
 router.get("/:id", param("id").isMongoId(), PharmacyController.getById);
 

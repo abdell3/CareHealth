@@ -21,8 +21,7 @@ const registerValidation = [
   
   body('email')
     .isEmail()
-    .withMessage('Please enter a valid email')
-    .normalizeEmail(),
+    .withMessage('Please enter a valid email'),
   
   body('password')
     .isLength({ min: 8 })
@@ -42,8 +41,7 @@ const registerValidation = [
 const loginValidation = [
   body('email')
     .isEmail()
-    .withMessage('Please enter a valid email')
-    .normalizeEmail(),
+    .withMessage('Please enter a valid email'),
   
   body('password')
     .notEmpty()
@@ -54,7 +52,6 @@ const resetPasswordValidation = [
   body('email')
     .isEmail()
     .withMessage('Please enter a valid email')
-    .normalizeEmail()
 ];
 
 const updatePasswordValidation = [

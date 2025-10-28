@@ -96,8 +96,8 @@ class UserModel {
 
   setupStatics() {
     this.schema.statics.findByEmail = function(email) {
-      return this.findOne({ email: email.toLowerCase() });
-    };
+      return this.findOne({ email: email });
+    }
   }
 
   getModel() {

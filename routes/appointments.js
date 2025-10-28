@@ -40,7 +40,7 @@ router.use(AuthMiddleware.verifyToken);
 
 router.get("/availability", availabilityValidation, AppointmentController.checkAvailability);
 
-router.post( "/", AuthMiddleware.requireRoles("admin", "doctor", "nurse", "secretary"), createValidation, AppointmentController.create,);
+router.post("/", AuthMiddleware.requireRoles("admin", "doctor", "nurse", "secretary"), createValidation, AppointmentController.create,);
 
 router.get("/", AppointmentController.list);
 
