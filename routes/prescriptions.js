@@ -6,19 +6,19 @@ const AuthMiddleware = require('../app/Http/Middlewares/AuthMiddleware');
 const router = express.Router();
 const createValidation = [
     body('patientId').isMongoId().withMessage('Valid Patient Id required'),
-    body('medication').isArray({ min : 1 }).withMessage('At Least One Medication Required'),
-    body('medication.*.name').isString().trim().notEmpty().withMessage('Medication Name required'),
-    body('medication.*.dosage').isString().trim().notEmpty().withMessage('Dosage required'),
-    body('medication.*.frequency').isString().trim().notEmpty().withMessage('Frequency required'),
-    body('medication.*.duration').optional().isString().trim(),
-    body('medication.*.instructions').optional().isString().trim(),
+    body('medications').isArray({ min : 1 }).withMessage('At Least One Medication Required'),
+    body('medications.*.name').isString().trim().notEmpty().withMessage('Medication Name required'),
+    body('medications.*.dosage').isString().trim().notEmpty().withMessage('Dosage required'),
+    body('medications.*.frequency').isString().trim().notEmpty().withMessage('Frequency required'),
+    body('medications.*.duration').optional().isString().trim(),
+    body('medications.*.instructions').optional().isString().trim(),
     body('expiryDate').optional().isISO8601(),
     body('notes').optional().isString().trim()
 ];
 
 const updateValidation = [
     body('status').optional().isIn(['active', 'completed', 'cancelled']),
-    body('medication').optional().isArray(),
+    body('medications').optional().isArray(),
     body('notes').optional().isString().trim()
 ];
 

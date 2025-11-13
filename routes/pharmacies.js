@@ -41,8 +41,8 @@ router.put( "/:id", AuthMiddleware.requireRoles("admin"), param("id").isMongoId(
 
 router.delete("/:id", AuthMiddleware.requireRoles("admin"), param("id").isMongoId(), PharmacyController.delete);
 
-router.post( "/:id/staff/add", AuthMiddleware.requireRoles("admin", "pharmacist"), param("id").isMongoId(), staffValidation, PharmacyController.addStaff );
+router.post("/:id/staff/add", AuthMiddleware.requireRoles("admin", "pharmacist"), param("id").isMongoId(), staffValidation, PharmacyController.addStaff );
 
-router.post( "/:id/staff/remove", AuthMiddleware.requireRoles("admin", "pharmacist"), param("id").isMongoId(), staffValidation, PharmacyController.removeStaff );
+router.post("/:id/staff/remove", AuthMiddleware.requireRoles("admin", "pharmacist"), param("id").isMongoId(), staffValidation, PharmacyController.removeStaff );
 
 module.exports = router;

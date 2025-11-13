@@ -14,7 +14,6 @@ class PatientModel {
         trim: true 
     },
       dateOfBirth: { 
-
         type: Date, 
         required: true 
     },

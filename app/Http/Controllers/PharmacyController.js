@@ -32,11 +32,11 @@ class PharmacyController {
     async getAll(req, res) {
         try {
             const { page, limit, isVerified } = req.query;
-            const pharmacies = await PharmacyService.getAll({
-                page,
-                limit,
-                isVerified: isVerified === "true",
-            });
+            const filters = { page, limit };
+            if (typeof isVerified !== "undefined") {
+                filters.isVerified = isVerified === "true";
+            }
+            const pharmacies = await PharmacyService.getAll(filters);
 
             res.json({
                 success: true,
@@ -98,8 +98,9 @@ class PharmacyController {
 
     async addStaff(req, res) {
         try {
-            const { pharmacyId, userId } = req.body;
-            const pharmacy = await PharmacyService.addStaff(pharmacyId, userId);
+            const { id } = req.params;
+            const { staffId } = req.body;
+            const pharmacy = await PharmacyService.addStaff(id, staffId);
 
             res.json({
                 success: true,
@@ -117,8 +118,9 @@ class PharmacyController {
 
     async removeStaff(req, res) {
         try {
-            const { pharmacyId, userId } = req.body;
-            const pharmacy = await PharmacyService.removeStaff(pharmacyId, userId);
+            const { id } = req.params;
+            const { staffId } = req.body;
+            const pharmacy = await PharmacyService.removeStaff(id, staffId);
             res.json({
                 success: true,
                 message: "Staff member removed successfully",

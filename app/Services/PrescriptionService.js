@@ -3,13 +3,12 @@ const PatientRepository = require('../Repositories/PatientRepository');
 const UserRepository = require('../Repositories/UserRepository');
 
 class PrescriptionService {
-    
     async create({ patientId, doctorId, medicalRecordId, medications, expiryDate, notes }) {
         const patient = await PatientRepository.findById(patientId);
         if(!patient) {
             const err = new Error('Patient Not Found !');
             err.statusCode = 404;
-            return err;
+            throw err;
         }
 
         const doctor = await UserRepository.findById(doctorId);
@@ -25,12 +24,21 @@ class PrescriptionService {
             throw err;
         }
 
+        const formattedMedications = medications.map(item => ({
+            name: item.name,
+            dosage: item.dosage,
+            frequence: item.frequency,
+            duration: item.duration || '',
+            instruction: item.instructions,
+            route: item.route || 'oral'
+        }));
+
         const prescription = await PrescriptionRepository.create({
-            patientId : patientId,
-            doctorId : doctorId,
-            medicalRecordId : medicalRecordId,
-            medications, 
-            expiryDate, 
+            patient: patientId,
+            doctor: doctorId,
+            medicalRecord: medicalRecordId,
+            medication: formattedMedications,
+            expireyDate: expiryDate,
             notes
         }) ;
         
@@ -65,7 +73,26 @@ class PrescriptionService {
             err.statusCode = 404;
         }
 
-        const updatedPrescription = await PrescriptionRepository.update(id, data);
+        const updatePayload = { ...data };
+
+        if(updatePayload.medications) {
+            updatePayload.medication = updatePayload.medications.map(item => ({
+                name: item.name,
+                dosage: item.dosage,
+                frequence: item.frequency,
+                duration: item.duration || '',
+                instruction: item.instructions,
+                route: item.route || 'oral'
+            }));
+            delete updatePayload.medications;
+        }
+
+        if(updatePayload.expiryDate) {
+            updatePayload.expireyDate = updatePayload.expiryDate;
+            delete updatePayload.expiryDate;
+        }
+
+        const updatedPrescription = await PrescriptionRepository.update(id, updatePayload);
         return updatedPrescription;
     }
 
