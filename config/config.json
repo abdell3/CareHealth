@@ -5,37 +5,11 @@
     "nodeEnv": "development",
     "host": "localhost"
   },
-  "database": {
-    "mongodbUri": "mongodb://mongo:27017/careHealthdb",
-    "mongodbLocalUri": "mongodb://localhost:27017/careHealthdb"
-  },
-  "redis": {
-    "host": "redis",
-    "port": 6379,
-    "localHost": "localhost",
-    "password": null
-  },
-  "jwt": {
-    "secret": "your_super_secret_jwt_key_change_this_in_production_2024",
-    "refreshSecret": "your_super_secret_refresh_key_change_this_in_production_2024",
-    "expiresIn": "15m",
-    "refreshExpiresIn": "7d"
-  },
-  "email": {
-    "host": "smtp.gmail.com",
-    "port": 587,
-    "secure": false,
-    "user": "your_email@gmail.com",
-    "pass": "your_app_password",
-    "from": "noreply@carehealth.com"
-  },
   "rateLimit": {
     "windowMs": 900000,
-    "maxRequests": 100
-  },
-  "security": {
-    "bcryptRounds": 12,
-    "sessionSecret": "your_session_secret_change_this_in_production_2024"
+    "maxRequests": 100,
+    "authWindowMs": 60000,
+    "authMaxRequests": 5
   },
   "fileUpload": {
     "maxFileSize": 5242880,

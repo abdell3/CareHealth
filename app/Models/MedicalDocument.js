@@ -48,12 +48,6 @@ class MedicalDocumentModel {
           type: String,
           required: true,
         },
-        s3Url: {
-          type: String,
-          required: true,
-        },
-        presignedUrl: String,
-        presignedUrlExpiry: Date,
         tags: [String],
         description: String,
         isEncrypted: {

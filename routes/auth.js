@@ -66,7 +66,7 @@ const updatePasswordValidation = [
 
 router.post('/register', registerValidation, AuthController.register);
 router.post('/login', loginValidation, AuthController.login);
-router.post('/refresh-token', AuthController.refreshToken);
+router.post('/refresh-token', AuthController.refresh);
 router.post('/reset-password', resetPasswordValidation, AuthController.resetPassword);
 router.post('/update-password', updatePasswordValidation, AuthController.updatePassword);
 router.post('/logout', AuthController.logout);

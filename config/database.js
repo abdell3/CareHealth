@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('./config.json');
 
 class Database {
   constructor() {
@@ -8,10 +7,11 @@ class Database {
 
   async connect() {
     try {
-      const mongoUri = process.env.MONGO_URI || 
-        (process.env.NODE_ENV === 'production' 
-          ? config.database.mongodbUri 
-          : config.database.mongodbLocalUri);
+      const fallbackUri =
+        process.env.NODE_ENV === 'production'
+          ? 'mongodb://mongo:27017/careHealthdb'
+          : 'mongodb://localhost:27017/careHealthdb';
+      const mongoUri = process.env.MONGO_URI || fallbackUri;
 
       console.log('Connecting to MongoDB...');
       console.log('MongoDB URI:', mongoUri);

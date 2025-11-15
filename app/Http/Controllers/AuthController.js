@@ -1,6 +1,8 @@
 const { body, validationResult } = require('express-validator');
 const AuthService = require('../../Services/AuthService');
 
+const extractRefreshToken = (req) => req.body.refreshToken || req.cookies?.refreshToken;
+
 class AuthController {
   async register(req, res) {
     try {
@@ -55,28 +57,49 @@ class AuthController {
     }
   }
 
-  async refreshToken(req, res) {
+  async refresh(req, res) {
     try {
-      const { refreshToken } = req.body;
-      
+      const refreshToken = extractRefreshToken(req);
+
       if (!refreshToken) {
         return res.status(400).json({
           success: false,
-          message: 'Refresh token is required'
+          message: 'Refresh token is required',
         });
       }
 
-      const tokens = await AuthService.refreshToken(refreshToken);
-      
+      const payload = AuthService.verifyRefreshToken(refreshToken);
+      const storedToken = await AuthService.findRefreshToken(refreshToken);
+
+      if (!storedToken || storedToken.expiresAt <= new Date()) {
+        await AuthService.revokeRefreshToken(refreshToken);
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid refresh token',
+        });
+      }
+
+      const user = await AuthService.getActiveUserById(payload.userId);
+      if (!user) {
+        await AuthService.revokeRefreshToken(refreshToken);
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid refresh token',
+        });
+      }
+
+      await AuthService.revokeRefreshToken(refreshToken);
+      const tokens = await AuthService.generateTokens(user);
+
       res.json({
         success: true,
         message: 'Token refreshed successfully',
-        data: tokens
+        data: tokens,
       });
     } catch (error) {
       res.status(401).json({
         success: false,
-        message: error.message
+        message: 'Invalid refresh token',
       });
     }
   }
@@ -134,10 +157,28 @@ class AuthController {
   }
 
   async logout(req, res) {
-    res.json({
-      success: true,
-      message: 'Logout successful'
-    });
+    try {
+      const refreshToken = extractRefreshToken(req);
+
+      if (!refreshToken) {
+        return res.status(400).json({
+          success: false,
+          message: 'Refresh token is required',
+        });
+      }
+
+      await AuthService.revokeRefreshToken(refreshToken);
+
+      res.json({
+        success: true,
+        message: 'Logout successful',
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unable to logout',
+      });
+    }
   }
 }
 

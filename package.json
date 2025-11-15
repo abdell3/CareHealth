@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js --trace-warnings ",
     "dev": "nodemon server.js --trace-warnings ",
-    "test": "mocha"
+    "test": "cross-env NODE_ENV=test mocha --recursive --timeout 20000 \"test/**/*.test.js\""
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "chai": "^6.2.0",
+    "cross-env": "^7.0.3",
     "mocha": "^11.7.4",
     "mongodb-memory-server": "^10.2.3",
     "supertest": "^7.1.4"

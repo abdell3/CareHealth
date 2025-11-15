@@ -11,14 +11,12 @@ class MedicalDocumentService {
       throw err
     }
 
-    // Validate file size (max 20MB)
     if (data.fileSize > 20 * 1024 * 1024) {
       const err = new Error("File size exceeds 20MB limit")
       err.statusCode = 400
       throw err
     }
 
-    // Validate MIME type
     const allowedMimes = ["application/pdf", "image/jpeg", "image/png", "text/csv"]
     if (!allowedMimes.includes(data.mimeType)) {
       const err = new Error("Invalid file type")
@@ -26,8 +24,12 @@ class MedicalDocumentService {
       throw err
     }
 
-    // Upload to S3
-    const s3Result = await S3Service.uploadFile(data)
+    const s3Result = await S3Service.uploadFile({
+      patientId: data.patientId,
+      fileName: data.fileName,
+      buffer: data.fileBuffer,
+      mimeType: data.mimeType,
+    })
 
     const documentData = {
       patient: data.patientId,
@@ -40,8 +42,7 @@ class MedicalDocumentService {
       fileSize: data.fileSize,
       mimeType: data.mimeType,
       s3Key: s3Result.key,
-      s3Url: s3Result.url,
-      tags: data.tags || [],
+      tags: Array.isArray(data.tags) ? data.tags : [],
       description: data.description,
     }
 
@@ -59,6 +60,29 @@ class MedicalDocumentService {
       err.statusCode = 404
       throw err
     }
+
+    await document.populate([
+      {
+        path: "patient",
+        populate: {
+          path: "user",
+          select: "email role",
+        },
+      },
+      {
+        path: "uploadedBy",
+        select: "firstName lastName email role",
+      },
+      {
+        path: "appointment",
+        select: "doctor patient",
+        populate: {
+          path: "doctor",
+          select: "firstName lastName email role",
+        },
+      },
+    ])
+
     return document
   }
 

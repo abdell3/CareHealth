@@ -37,9 +37,30 @@ const searchValidation = [
   query("limit").optional().isInt({ min: 1, max: 100 }),
 ];
 
+const handleFileUpload = (req, res, next) => {
+  upload.single("file")(req, res, (err) => {
+    if (err) {
+      if (err.code === "LIMIT_FILE_SIZE") {
+        return res.status(400).json({
+          success: false,
+          message: "File size exceeds 20MB limit",
+        });
+      }
+      return next(err);
+    }
+    next();
+  });
+};
+
 router.use(AuthMiddleware.verifyToken);
 
-router.post("/upload", AuthMiddleware.requireRoles("admin", "doctor", "nurse"), upload.single("file"), uploadValidation,MedicalDocumentController.upload);
+router.post(
+  "/upload",
+  AuthMiddleware.requireRoles("admin", "doctor", "nurse"),
+  handleFileUpload,
+  uploadValidation,
+  MedicalDocumentController.upload,
+);
 
 router.get("/patient/:patientId", param("patientId").isMongoId(), MedicalDocumentController.getByPatient);
 

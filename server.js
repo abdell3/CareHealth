@@ -21,13 +21,16 @@ const RoleService = require("./app/Services/RoleService")
 
 
 const app = express();
-const port = process.env.PORT || config.server.port;
+const apiVersion = process.env.API_VERSION || config.server.apiVersion || "v1";
+const nodeEnv = process.env.NODE_ENV || config.server.nodeEnv || "development";
+const isTestEnv = nodeEnv === "test";
+const port = Number(process.env.PORT) || config.server.port;
 
 app.use(helmet());
 app.use(
   cors({
     origin:
-      process.env.NODE_ENV === "production"
+      nodeEnv === "production"
         ? ["https://yourdomain.com"]
         : ["http://localhost:3000", "http://localhost:3001"],
     credentials: true,
@@ -40,13 +43,28 @@ const limiter = rateLimit({
   message: {
     error: "Too many requests from this IP, please try again later.",
   },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
-app.use("/api/", limiter);
+
+const authLimiter = rateLimit({
+  windowMs: config.rateLimit.authWindowMs || 60000,
+  max: config.rateLimit.authMaxRequests || 5,
+  message: {
+    error: "Too many auth attempts, please try again later.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+if (!isTestEnv) {
+  app.use("/api/", limiter);
+}
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-if (config.server.nodeEnv === "development") {
+if (nodeEnv === "development") {
   app.use(morgan("dev"));
 } else {
   app.use(morgan("combined"));
@@ -61,33 +79,35 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.get(`/api/${config.server.apiVersion}`, (req, res) => {
+app.get(`/api/${apiVersion}`, (req, res) => {
   res.json({
     message: "CareHealth EHR API",
-    version: config.server.apiVersion,
+    version: apiVersion,
     status: "Running",
     endpoints: {
-      auth: "/api/v1/auth",
-      users: "/api/v1/users",
-      patients: "/api/v1/patients",
-      appointments: "/api/v1/appointments",
-      medicalRecords: "/api/v1/medical-records",
-      prescriptions: "/api/v1/prescriptions",
-      labResults: "/api/v1/lab-results",
+      auth: `/api/${apiVersion}/auth`,
+      users: `/api/${apiVersion}/users`,
+      patients: `/api/${apiVersion}/patients`,
+      appointments: `/api/${apiVersion}/appointments`,
+      medicalRecords: `/api/${apiVersion}/medical-records`,
+      prescriptions: `/api/${apiVersion}/prescriptions`,
+      labResults: `/api/${apiVersion}/lab-results`,
     },
   });
 });
 
-app.use(`/api/${config.server.apiVersion}/auth`, authRoutes);
-app.use(`/api/${config.server.apiVersion}/users`, userRoutes);
-app.use(`/api/${config.server.apiVersion}/roles`, roleRoutes);
-app.use(`/api/${config.server.apiVersion}/patients`, patientRoutes);
-app.use(`/api/${config.server.apiVersion}/appointments`, appointmentRoutes);
-app.use(`/api/${config.server.apiVersion}/medical-records`, medicalRecordRoutes);
-app.use(`/api/${config.server.apiVersion}/prescriptions`, prescriptionRoutes);
-app.use(`/api/${config.server.apiVersion}/lab-results`, labResultRoutes);
-app.use(`/api/${config.server.apiVersion}/medical-documents`, medicalDocumentRoutes);
-app.use(`/api/${config.server.apiVersion}/pharmacies`, pharmacyRoutes);
+const authBasePath = `/api/${apiVersion}/auth`;
+const authMiddlewares = isTestEnv ? [authRoutes] : [authLimiter, authRoutes];
+app.use(authBasePath, ...authMiddlewares);
+app.use(`/api/${apiVersion}/users`, userRoutes);
+app.use(`/api/${apiVersion}/roles`, roleRoutes);
+app.use(`/api/${apiVersion}/patients`, patientRoutes);
+app.use(`/api/${apiVersion}/appointments`, appointmentRoutes);
+app.use(`/api/${apiVersion}/medical-records`, medicalRecordRoutes);
+app.use(`/api/${apiVersion}/prescriptions`, prescriptionRoutes);
+app.use(`/api/${apiVersion}/lab-results`, labResultRoutes);
+app.use(`/api/${apiVersion}/medical-documents`, medicalDocumentRoutes);
+app.use(`/api/${apiVersion}/pharmacies`, pharmacyRoutes);
 
 
 app.use((req, res) => {
@@ -106,7 +126,7 @@ app.use((error, req, res, next) => {
 
   res.status(statusCode).json({
     error: message,
-    ...(config.server.nodeEnv === "development" && { stack: error.stack }),
+    ...(nodeEnv === "development" && { stack: error.stack }),
   });
 });
 
@@ -118,13 +138,13 @@ async function startServer() {
     app.listen(port, () => {
       console.log("CareHealth EHR Server Started!");
       console.log(`Server running on port ${port}`);
-      console.log(`Environment: ${config.server.nodeEnv}`);
-      console.log(`API Version: ${config.server.apiVersion}`);
+      console.log(`Environment: ${nodeEnv}`);
+      console.log(`API Version: ${apiVersion}`);
       console.log(`Health Check: http://localhost:${port}/health`);
-      console.log(`API Base URL: http://localhost:${port}/api/${config.server.apiVersion}`);
+      console.log(`API Base URL: http://localhost:${port}/api/${apiVersion}`);
       console.log(`Auth Endpoints:`);
-      console.log(`POST http://localhost:${port}/api/${config.server.apiVersion}/auth/register`);
-      console.log(`POST http://localhost:${port}/api/${config.server.apiVersion}/auth/login`);
+      console.log(`POST http://localhost:${port}/api/${apiVersion}/auth/register`);
+      console.log(`POST http://localhost:${port}/api/${apiVersion}/auth/login`);
     });
   } catch (error) {
     console.error("Database connection failed, but server is running:", error.message);
@@ -133,16 +153,19 @@ async function startServer() {
     app.listen(port, () => {
       console.log("CareHealth EHR Server Started!");
       console.log(`Server running on port ${port}`);
-      console.log(`Environment: ${config.server.nodeEnv}`);
-      console.log(`API Version: ${config.server.apiVersion}`);
+      console.log(`Environment: ${nodeEnv}`);
+      console.log(`API Version: ${apiVersion}`);
       console.log(`Health Check: http://localhost:${port}/health`);
-      console.log(`API Base URL: http://localhost:${port}/api/${config.server.apiVersion}`);
+      console.log(`API Base URL: http://localhost:${port}/api/${apiVersion}`);
       console.log(`Auth Endpoints:`);
-      console.log(`POST http://localhost:${port}/api/${config.server.apiVersion}/auth/register`);
-      console.log(`POST http://localhost:${port}/api/${config.server.apiVersion}/auth/login`);
+      console.log(`POST http://localhost:${port}/api/${apiVersion}/auth/register`);
+      console.log(`POST http://localhost:${port}/api/${apiVersion}/auth/login`);
     });
   }
 }
 
-startServer();
-module.exports = app;
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = { app, startServer };
