@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const UserRepository = require('../../Repositories/UserRepository');
-const config = require('../../../config/config.json');
 
 class AuthMiddleware {
   async verifyToken(req, res, next) {
@@ -11,7 +10,11 @@ class AuthMiddleware {
         return res.status(401).json({ message: 'No token provided' });
       }
 
-      const decoded = jwt.verify(token, config.jwt.secret);
+      if (!process.env.JWT_SECRET) {
+        throw new Error('Missing JWT secret');
+      }
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await UserRepository.findById(decoded.userId);
       
       if (!user || !user.isActive) {

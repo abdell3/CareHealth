@@ -18,7 +18,8 @@ class AppointmentRepository {
     return this.module.find({
       doctor: doctorId,
       status: { $ne: "cancelled" },
-      $or: [{ startTime: { $lt: end }, endTime: { $gt: start } }],
+      startTime: { $lt: end },
+      endTime: { $gt: start },
     })
       .populate("doctor")
       .populate("patient");
@@ -28,7 +29,8 @@ class AppointmentRepository {
     return this.module.find({
       patient: patientId,
       status: { $ne: "cancelled" },
-      $or: [{ startTime: { $lt: end }, endTime: { $gt: start } }],
+      startTime: { $lt: end },
+      endTime: { $gt: start },
     })
       .populate("doctor")
       .populate("patient");
