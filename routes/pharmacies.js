@@ -1,7 +1,7 @@
 const express = require("express");
 const { body, param } = require("express-validator");
-const PharmacyController = require("../app/Http/Controllers/PharmacyController");
-const AuthMiddleware = require("../app/Http/Middlewares/AuthMiddleware");
+const PharmacyController = require("../src/modules/pharmacy/PharmacyController");
+const AuthMiddleware = require("../src/core/middlewares/AuthMiddleware");
 
 const router = express.Router();
 

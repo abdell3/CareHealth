@@ -1,8 +1,8 @@
 const express = require('express');
 const { body, param } = require('express-validator');
-const PatientController = require('../app/Http/Controllers/PatientController');
-const AuthMiddleware = require('../app/Http/Middlewares/AuthMiddleware');
-const MedicalDocumentController = require('../app/Http/Controllers/MedicalDocumentController');
+const PatientController = require('../src/modules/patients/PatientController');
+const AuthMiddleware = require('../src/core/middlewares/AuthMiddleware');
+const MedicalDocumentController = require('../src/modules/documents/MedicalDocumentController');
 
 const router = express.Router();
 

@@ -4,8 +4,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
-const config = require("./config/config.json");
-const database = require("./config/database");
+const config = require("./src/config/config.json");
+const database = require("./src/config/database");
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
@@ -17,7 +17,7 @@ const prescriptionRoutes = require("./routes/prescriptions");
 const labResultRoutes = require("./routes/lab-results");
 const medicalDocumentRoutes = require('./routes/medical-documents');
 const pharmacyRoutes = require('./routes/pharmacies');
-const RoleService = require("./app/Services/RoleService")
+const RoleService = require("./src/modules/users/RoleService")
 
 
 const app = express();

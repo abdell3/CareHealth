@@ -2,8 +2,8 @@ require("dotenv").config();
 const Redis = require("ioredis");
 const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
-const database = require("../config/database");
-const AppointmentModel = require("../app/Models/Appointment");
+const database = require("../src/config/database");
+const AppointmentModel = require("../src/modules/appointments/Appointment");
 
 const Appointment = AppointmentModel.getModel();
 const QUEUE_KEY = process.env.APPOINTMENT_QUEUE_KEY || "queues:appointment-reminders";

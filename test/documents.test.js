@@ -12,11 +12,11 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const RoleModel = require('../app/Models/Role');
-const UserModel = require('../app/Models/User');
-const PatientModel = require('../app/Models/Patient');
-const MedicalDocumentModel = require('../app/Models/MedicalDocument');
-const S3Service = require('../app/Services/S3Service');
+const RoleModel = require('../src/modules/users/Role');
+const UserModel = require('../src/modules/users/User');
+const PatientModel = require('../src/modules/patients/Patient');
+const MedicalDocumentModel = require('../src/modules/documents/MedicalDocument');
+const S3Service = require('../src/modules/documents/S3Service');
 const { app } = require('../server');
 
 const API_PREFIX = '/api/v1';

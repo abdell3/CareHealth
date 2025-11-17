@@ -14,11 +14,11 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const RoleModel = require('../app/Models/Role');
-const UserModel = require('../app/Models/User');
-const PatientModel = require('../app/Models/Patient');
-const AppointmentModel = require('../app/Models/Appointment');
-const AppointmentService = require('../app/Services/AppointmentService');
+const RoleModel = require('../src/modules/users/Role');
+const UserModel = require('../src/modules/users/User');
+const PatientModel = require('../src/modules/patients/Patient');
+const AppointmentModel = require('../src/modules/appointments/Appointment');
+const AppointmentService = require('../src/modules/appointments/AppointmentService');
 const { processReminderJob } = require('../worker/emailWorker');
 const { app } = require('../server');
 

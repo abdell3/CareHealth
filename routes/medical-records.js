@@ -1,7 +1,7 @@
 const express = require("express");
 const { body, query } = require("express-validator");
-const MedicalRecordController = require("../app/Http/Controllers/MedicalRecordController");
-const AuthMiddleware = require("../app/Http/Middlewares/AuthMiddleware");
+const MedicalRecordController = require("../src/modules/consultations/MedicalRecordController");
+const AuthMiddleware = require("../src/core/middlewares/AuthMiddleware");
 
 const router = express.Router();
 

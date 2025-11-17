@@ -11,8 +11,8 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const RoleModel = require('../app/Models/Role');
-const RefreshTokenModel = require('../app/Models/RefreshToken');
+const RoleModel = require('../src/modules/users/Role');
+const RefreshTokenModel = require('../src/modules/auth/RefreshToken');
 const { app } = require('../server');
 
 const API_PREFIX = '/api/v1';
